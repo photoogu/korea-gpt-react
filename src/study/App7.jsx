@@ -25,6 +25,7 @@
 
 import React, { useState } from 'react';
 import BookRegister from './components/book/BookRegister/BookRegister';
+import BookSearch from './components/book/BookSearch/BookSearch';
 
 function App7(props) {
     const [ path, setPath ] = useState("bookregister");
@@ -41,6 +42,9 @@ function App7(props) {
             <button onClick={() => handlePageChangeButtonOnClick("booksearch")}>도서 조회</button>
             {
                 path === "bookregister" && <BookRegister bookList={bookList} setBookList={setBookList} />
+            }
+            {
+                path === "booksearch" && <BookSearch bookList={bookList} />
             }
         </div>
     );
