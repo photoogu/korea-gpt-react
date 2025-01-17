@@ -17,12 +17,12 @@ function App10(props) {
         return unmount;
     }
 
-    useEffect(mount);
+    useEffect(mount); // 렌더링 될 때마다 mount 실행
 
     useEffect(() => {
         console.log(num1);
         setNum2(num1 + 100);
-    }, [num1]);     // num1 이 바뀔때마다 mount 실행
+    }, [num1]);     // num1 이 바뀔때마다 내부 함수 실행
 
     useEffect(() => {
         console.log(num2);
@@ -31,16 +31,18 @@ function App10(props) {
     useEffect(() => {
         console.log(num1);
         console.log(num2);
-    }, [num1, num2]);   // 둘 중 하나라도 상태가 변하면 mount 실행
+    }, [num1, num2]);   // 둘 중 하나라도 상태가 변하면 내부 함수 실행
 
     useEffect(() => {
         console.log("마운트!!!");
         return () => { console.log("최초의 한번!!") };
-    }, [])          // 빈 배열 : 최초의 한번만 mount 실행됨
+    }, [])          // 빈 배열 : 최초의 한번만 mount 실행됨  >>  return 함수 실행 X
 
     const handleOnClick = () => {
         setNum1(num1 + 10);
     }
+
+    console.log("?????");
     
     return (
         <div>
