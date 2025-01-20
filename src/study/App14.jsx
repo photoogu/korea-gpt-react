@@ -6,7 +6,9 @@ function App14(props) {
     const handleRequestOnClick = async () => {
         let response = null;
         try {
-            response = await axios.get("http://localhost:8080/servlet_study_war/api/user");
+            response = await axios.get(
+              "http://localhost:8080/servlet_study_war/api/user"
+            );
             console.log(response);
             console.log(response.data.username);
         } catch(error) {
@@ -28,7 +30,9 @@ function App14(props) {
     const handleBookRequestOnClick = async () => {
         let response = null;
         try {
-            response = await axios.get("http://localhost:8080/servlet_study_war/api/book");
+            response = await axios.get(
+              "http://localhost:8080/servlet_study_war/api/book"
+            );
             console.log(response);
         } catch(error) {
             console.error(error);
