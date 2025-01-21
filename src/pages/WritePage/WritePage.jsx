@@ -1,7 +1,8 @@
 /**@jsxImportSource @emotion/react */
 import * as s from './style';
 import ReactQuill from 'react-quill';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 function WritePage(props) {
 
@@ -34,17 +35,61 @@ function WritePage(props) {
         head.appendChild(link);
     }, []);
 
+    const [inputValue, setInputValue] = useState({
+        title: "",
+        content: "",
+    });
+
+    const handleInputOnChange = (e) => {
+        setInputValue({
+            ...inputValue,
+            [e.target.name]: e.target.value,
+        });
+    }
+
+    const handleQuillOnChange = (value) => {    // Quill 은 value 를 들고온다 (event 가 아님!)
+        setInputValue({
+            ...inputValue,
+            content: value,
+        });
+    }
+
+    const handleWriteSubmitOnClick = async () => {
+        
+        try {
+            const response = await axios.post("http://localhost:8080/servlet_study_war/api/board", inputValue); // 객체를 axios 안에 넣으면 자동으로 JSON 으로 받는다
+        } catch (error) {
+            
+        }
+
+    }
+
     return (
-        <div>
-            <div css={s.headerLayout}>
-                <button>작성하기</button>
-            </div>
-            <ReactQuill
-                modules={{
-                    toolbar: toolbarOptions
-                }}
-            />
+      <div>
+        <div css={s.headerLayout}>
+          <button onClick={handleWriteSubmitOnClick}>작성하기</button>
         </div>
+        <div css={s.titleLayout}>
+          <input type="text"
+            placeholder="여기에 제목을 입력하세요."
+            name="title"
+            value={inputValue.title}
+            onChange={handleInputOnChange}
+          />
+        </div>
+        <ReactQuill
+          modules={{
+            toolbar: toolbarOptions,
+          }}
+          style={{
+            boxSizing: "border-box",
+            width: "100%",
+            height: "600px",
+          }}
+          value={inputValue.content}
+          onChange={handleQuillOnChange}
+        />
+      </div>
     );
 }
 
