@@ -1,4 +1,4 @@
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { Global } from '@emotion/react';
 import { global } from './styles/global';
 import MainLayout from './components/MainLayout/MainLayout';
@@ -7,16 +7,15 @@ import WritePage from "./pages/WritePage/WritePage";
 import ListPage from './pages/ListPage/ListPage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import SigninPage from './pages/SigninPage/SigninPage'
-import { useEffect } from 'react';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
-import { authUserIdAtomState } from './atoms/authAtom';
+import { accessTokenAtomState } from './atoms/authAtom';
 import { useQuery } from 'react-query';
 
 
 function App() {
     // const [ userId, setUserId ] = useRecoilState(authUserIdAtomState);
-    const location = useLocation();
+    const [ accessToken, setAccessToken ] = useRecoilState(accessTokenAtomState);
 
     const authenticatedUser = async () => {
         // let response = null;
@@ -50,13 +49,15 @@ function App() {
             //     console.error(error);
             //     setUserId(0);
             // },
+            retry: 0,
             refetchOnWindowFocus: false,
-            enabled: !!localStorage.getItem("AccessToken"),
+            enabled: !!accessToken,
+            // enabled: !!localStorage.getItem("AccessToken"),
             // useQuery 는 enabled 값이 true 여야 동작함. 즉, authenticatedUser 이 동작하려면 enabled 값이 true여야함
         }
     );
 
-    console.log(authenticatedUserQuery.isLoading)
+    // console.log(authenticatedUserQuery.isLoading);
 
     return (
         <>

@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient(); // 전역상태
 
 root.render(
   <RecoilRoot>
